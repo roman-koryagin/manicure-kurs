@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Базовый курс по маникюру</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blush: #f9e8e8;
+    --rose: #e8b4b8;
+    --dusty: #d4878f;
+    --mauve: #c26b78;
+    --cream: #fdf6f0;
+    --sand: #f5e6d8;
+    --text: #4a3035;
+    --muted: #8a6570;
+    --white: #ffffff;
+    --accent: #e8c4c4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(145deg, #fdeef0 0%, #f9dde0 40%, #f0c8cc 100%);
+    padding: 60px 24px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(232,180,184,0.4), transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(210,140,150,0.3), transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-emoji { font-size: 48px; margin-bottom: 12px; display: block; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 7vw, 48px);
+    color: var(--mauve);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  /* NAV */
+  .nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 16px 16px;
+    background: var(--white);
+    border-bottom: 1px solid var(--accent);
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(194,107,120,0.08);
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    flex-shrink: 0;
+    padding: 7px 14px;
+    border: 1.5px solid var(--rose);
+    background: transparent;
+    border-radius: 20px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mauve);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-btn:hover, .nav-btn.active {
+    background: var(--mauve);
+    color: white;
+    border-color: var(--mauve);
+  }
+
+  /* CONTENT */
+  .content { padding: 0 0 60px; }
+
+  .section {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* PART HEADER */
+  .part-header {
+    background: linear-gradient(135deg, #fdeef0, #f5d8dc);
+    padding: 32px 24px 24px;
+    border-bottom: 2px solid var(--accent);
+    position: relative;
+  }
+  .part-badge {
+    display: inline-block;
+    background: var(--mauve);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+  .part-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 32px);
+    color: var(--mauve);
+    line-height: 1.3;
+  }
+  .part-header p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* CARDS */
+  .cards { padding: 20px 16px; display: flex; flex-direction: column; gap: 14px; }
+
+  .card {
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--accent);
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(194,107,120,0.06);
+  }
+  .card-header {
+    background: linear-gradient(135deg, var(--blush), var(--sand));
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card-icon {
+    width: 34px; height: 34px;
+    background: var(--mauve);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .card-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--text);
+    flex: 1;
+  }
+  .card-arrow {
+    font-size: 12px;
+    color: var(--muted);
+    transition: transform 0.3s;
+  }
+  .card-body {
+    padding: 16px 18px;
+    display: none;
+  }
+  .card.open .card-body { display: block; }
+  .card.open .card-arrow { transform: rotate(180deg); }
+
+  /* LIST ITEMS */
+  .item {
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    background: var(--blush);
+    border-left: 3px solid var(--rose);
+    font-size: 14px;
+  }
+  .item strong { color: var(--mauve); display: block; margin-bottom: 2px; }
+  .item.warning {
+    background: #fff5e6;
+    border-left-color: #e0a060;
+  }
+  .item.warning strong { color: #c47a20; }
+  .item.danger {
+    background: #fdf0f0;
+    border-left-color: var(--dusty);
+  }
+  .item.success {
+    background: #f0f8f0;
+    border-left-color: #7cb87c;
+  }
+
+  /* GRID */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  @media (max-width: 360px) {
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+  .grid-item {
+    background: var(--blush);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    font-size: 13px;
+  }
+  .grid-item .gi-title { font-weight: 700; color: var(--mauve); font-size: 14px; }
+
+  /* STEPS */
+  .steps { counter-reset: step; }
+  .step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 26px; height: 26px;
+    background: var(--mauve);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-text { font-size: 14px; line-height: 1.6; }
+
+  /* PILL TAGS */
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .tag-pink { background: var(--rose); color: var(--text); }
+  .tag-dark { background: var(--mauve); color: white; }
+  .tag-sand { background: var(--sand); color: var(--muted); }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; margin: 8px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--mauve); color: white; padding: 8px 12px; text-align: left; font-weight: 600; }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--accent); }
+  tr:nth-child(even) td { background: var(--blush); }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: linear-gradient(135deg, #fdeef0, #f5d5d8);
+    border: 1.5px solid var(--rose);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  .highlight .hl-title {
+    font-weight: 700;
+    color: var(--mauve);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* FORMULA */
+  .formula {
+    background: var(--sand);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 10px 0;
+    font-size: 14px;
+    border: 1px dashed var(--rose);
+  }
+  .formula .f-title { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--mauve); margin-bottom: 8px; }
+
+  /* SHOPPING LIST */
+  .shop-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--accent);
+    font-size: 14px;
+  }
+  .shop-num {
+    min-width: 24px; height: 24px;
+    background: var(--blush);
+    border: 1.5px solid var(--rose);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--mauve);
+    flex-shrink: 0;
+  }
+  .shop-art { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* SECTION INTRO */
+  .s-intro {
+    padding: 16px 16px 0;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* DISEASE CARDS */
+  .disease { margin-bottom: 10px; border-radius: 10px; overflow: hidden; }
+  .disease-head {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    font-weight: 700; font-size: 14px;
+  }
+  .disease-body { padding: 10px 14px; font-size: 13px; }
+  .d-bad { background: #fdeaea; color: #c03030; }
+  .d-bad-body { background: #fff5f5; border: 1px solid #f0c0c0; }
+  .d-ok { background: #fdf5e6; color: #c07020; }
+  .d-ok-body { background: #fffaf0; border: 1px solid #f0dca0; }
+
+  /* NAIL ANATOMY */
+  .anatomy-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--accent);
+    font-size: 14px;
+  }
+  .anatomy-num {
+    width: 22px; height: 22px;
+    background: var(--mauve);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .anatomy-name { font-weight: 600; color: var(--mauve); }
+  .anatomy-note { color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 30px 24px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--accent);
+  }
+  footer .f-heart { color: var(--dusty); font-size: 16px; }
+
+  /* SCROLL TO TOP */
+  .scroll-top {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    width: 42px; height: 42px;
+    background: var(--mauve);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(194,107,120,0.4);
+    display: none;
+    z-index: 200;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-emoji">💅</span>
+  <h1>Базовый курс<br>по маникюру</h1>
+  <p>Полное руководство мастера — от А до Я</p>
+</div>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="showSection(0,this)">Ч.1 Внешний вид</button>
+  <button class="nav-btn" onclick="showSection(1,this)">Ч.2 Стерилизация</button>
+  <button class="nav-btn" onclick="showSection(2,this)">Ч.3 Строение ногтя</button>
+  <button class="nav-btn" onclick="showSection(3,this)">Ч.4 Инструменты</button>
+  <button class="nav-btn" onclick="showSection(4,this)">Ч.5 Снятие покрытия</button>
+  <button class="nav-btn" onclick="showSection(5,this)">Ч.6 Формы</button>
+  <button class="nav-btn" onclick="showSection(6,this)">Ч.7 Архитектура</button>
+  <button class="nav-btn" onclick="showSection(7,this)">Ч.8 Болезни</button>
+  <button class="nav-btn" onclick="showSection(8,this)">🛒 Список покупок</button>
+</nav>
+
+<div class="content">
+
+  <!-- ЧАСТЬ 1 -->
+  <div class="section active" id="s0">
+    <div class="part-header">
+      <div class="part-badge">Часть 1</div>
+      <h2>Внешний вид мастера и рабочее место</h2>
+      <p>Профессиональный вид = доверие клиента и ваша безопасность</p>
+    </div>
+    <div class="cards">
+
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">😷</div>
+          <h3>Средства защиты</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item">
+            <strong>🩺 Медицинская маска</strong>
+            Пыль проникает в дыхательные пути и вызывает аллергию, заражение вирусами, грибками, бактериями и проблемы с дыханием
+          </div>
+          <div class="item">
+            <strong>🧤 Перчатки</strong>
+            <div class="grid-2" style="margin-top:8px">
+              <div class="grid-item">
+                <div class="gi-title">Нитриловые</div>
+                Прочнее, надёжная защита от инфекций ✅
+              </div>
+              <div class="grid-item">
+                <div class="gi-title">Виниловые</div>
+                Плотные, не тянутся, слабее защищают 🟡
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <strong>👚 Фартук / медицинский костюм</strong>
+            Сменная одежда обязательна на каждый рабочий день
+          </div>
+          <div class="item">
+            <strong>👟 Сменная удобная обувь</strong>
+            Например, тапочки — ноги не устают в долгие рабочие дни
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🏠</div>
+          <h3>Организация рабочего места</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="highlight">
+            <div class="hl-title">⚠️ Обязательно</div>
+            Светлое помещение и регулярное проветривание
+          </div>
+          <div class="item"><strong>🪑 Мебель</strong>Профессиональный стол, 2 стула, мусорное ведро</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">💡</div>
+          <h3>Оборудование</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item"><strong>1. Подставка под руку</strong></div>
+          <div class="item">
+            <strong>2. Гибридная лампа</strong>
+            Для удобства лучше иметь две. Два вида: УФ и LED
+            <div class="grid-2" style="margin-top:8px">
+              <div class="grid-item">
+                <div class="gi-title">LED</div>
+                Современная, безопасная. Сушит ~1 мин ✅
+              </div>
+              <div class="grid-item">
+                <div class="gi-title">УФ</div>
+                Сушит ~2 мин, старый стандарт 🟡
+              </div>
+            </div>
+            <div class="item warning" style="margin-top:8px">
+              <strong>⚠️ Жжение в лампе</strong>
+              Попросите вынуть руку, дайте остыть, затем досушите. Жжение — химическая реакция: материал переходит из жидкого в твёрдое. Чем мощнее лампа и толще слой — тем сильнее печёт.
+            </div>
+            <div class="item" style="margin-top:6px">⚡ Оптимальная мощность: <strong>48 Вт</strong> · Сушка: <strong>30–60 сек</strong></div>
+          </div>
+          <div class="item"><strong>3. Пылесос</strong> — чем выше мощность, тем лучше</div>
+          <div class="item">
+            <strong>4. Маникюрный аппарат</strong>
+            <div class="steps" style="margin-top:8px">
+              <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Ручка</strong> — лёгкая и удобная (всегда в руке)</div></div>
+              <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Вибрация</strong> — в хорошем аппарате отсутствует</div></div>
+              <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Провод</strong> — средняя длина (не путается)</div></div>
+              <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Мощность</strong> — 35 000 об/мин и 48–65 Вт</div></div>
+            </div>
+          </div>
+          <div class="item"><strong>5. Настольная лампа</strong> — холодный свет</div>
+          <div class="item"><strong>6. Бокс для стерилизации + сухожар</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🧴</div>
+          <h3>Расходники и материалы</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item"><strong>Контейнер с препаратами</strong><br>Антисептик · Обезжириватель · Праймер · Дигидратор · База · Топ</div>
+          <div class="item">
+            <strong>Одноразовые расходники (вскрывать при клиенте!)</strong>
+            <div class="tags" style="margin-top:8px">
+              <span class="tag tag-pink">Апельсиновая палочка</span>
+              <span class="tag tag-pink">Пилка</span>
+              <span class="tag tag-pink">Щёточка для пыли</span>
+              <span class="tag tag-pink">Безворсовые салфетки</span>
+              <span class="tag tag-pink">Перчатки</span>
+              <span class="tag tag-pink">Маска</span>
+              <span class="tag tag-dark">Пакет с инструментами</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЧАСТЬ 2 -->
+  <div class="section" id="s1">
+    <div class="part-header">
+      <div class="part-badge">Часть 2</div>
+      <h2>Дезинфекция и стерилизация</h2>
+      <p>Здоровье клиента — ваша репутация</p>
+    </div>
+    <div class="cards">
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🦠</div>
+          <h3>Зачем нужна обработка?</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item success">
+            Обязательный этап маникюра. Уничтожает инфекции, бактерии и грибки. Проводится строго после каждого клиента.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🧪</div>
+          <h3>Необходимое оснащение</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item"><strong>Бокс для стерилизации + сухожарный шкаф</strong></div>
+          <div class="item"><strong>Щёточка</strong> для очищения фрез</div>
+          <div class="item">
+            <strong>Дезинфицирующий раствор (Аламинол — бюджетный)</strong>
+            <div class="formula" style="margin-top:8px">
+              <div class="f-title">📐 Пропорции раствора</div>
+              На <strong>1 л воды</strong> — <strong>10 мл раствора</strong> (1,5–2 ст. ложки)
+            </div>
+          </div>
+          <div class="item"><strong>Дезинфицирующий спрей</strong> + одноразовые полотенца — для стола, стула, лампы и т.д.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">✅</div>
+          <h3>Этапы обработки инструментов</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div style="margin-bottom:14px">
+            <div class="tag tag-dark" style="margin-bottom:10px">Шаг 1 — Дезинфекция сразу после использования</div>
+            <div class="steps">
+              <div class="step"><div class="step-num">1</div><div class="step-text">Подготовить раствор</div></div>
+              <div class="step"><div class="step-num">2</div><div class="step-text">Залить в бокс для стерилизации</div></div>
+              <div class="step"><div class="step-num">3</div><div class="step-text">Опустить инструменты в бокс</div></div>
+              <div class="step"><div class="step-num">4</div><div class="step-text">Замочить на <strong>15–20 минут</strong></div></div>
+            </div>
+          </div>
+          <div style="margin-bottom:14px">
+            <div class="tag tag-pink" style="margin-bottom:10px">Шаг 2 — Предстерилизационная подготовка</div>
+            <div class="steps">
+              <div class="step"><div class="step-num">1</div><div class="step-text">Вынуть лоток, щёточкой промыть инструменты</div></div>
+              <div class="step"><div class="step-num">2</div><div class="step-text">Положить на бумажное полотенце, накрыть сверху</div></div>
+              <div class="step"><div class="step-num">3</div><div class="step-text">Делать в конце дня — сушка <strong>12 часов</strong> естественно</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="tag tag-dark" style="margin-bottom:10px">Шаг 3 — Сухожар</div>
+            <div class="formula">
+              <div class="f-title">🌡 Режим стерилизации</div>
+              Только в <strong>крафт-пакетах</strong><br>
+              <strong>180°C · 60 минут</strong><br>
+              Срок хранения: <strong>20 суток</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЧАСТЬ 3 -->
+  <div class="section" id="s2">
+    <div class="part-header">
+      <div class="part-badge">Часть 3</div>
+      <h2>Строение ногтевого аппарата</h2>
+      <p>Знание анатомии — основа безопасного маникюра</p>
+    </div>
+    <div class="cards">
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🦴</div>
+          <h3>Фаланги пальца</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="tags">
+            <span class="tag tag-dark">Дистальная (передняя)</span>
+            <span class="tag tag-pink">Промежуточная</span>
+            <span class="tag tag-sand">Проксимальная (дальняя)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">💅</div>
+          <h3>Элементы ногтевого аппарата</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="anatomy-item">
+            <div class="anatomy-num">1</div>
+            <div><div class="anatomy-name">Ногтевая пластина</div></div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">2</div>
+            <div><div class="anatomy-name">Ногтевое ложе</div><div class="anatomy-note">Участок эпидермиса под ногтевой пластиной — принимает негативные воздействия среды</div></div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">3</div>
+            <div><div class="anatomy-name">Свободный край</div></div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">4</div>
+            <div><div class="anatomy-name">Линия улыбки</div></div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">5</div>
+            <div>
+              <div class="anatomy-name">Точки вроста</div>
+              <div class="anatomy-note">
+                <div class="item danger" style="margin-top:6px">
+                  <strong>🚫 Нельзя спиливать, срезать или убирать фрезой!</strong>
+                  Нарушение строения → боковой онихолизис и трещины
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">6</div>
+            <div><div class="anatomy-name">Боковые валики (латеральные)</div></div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">7</div>
+            <div><div class="anatomy-name">Матрикс</div><div class="anatomy-note">Находится в мягких тканях под ногтевым валиком. Отвечает за формирование новых клеток и рост ногтя</div></div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">8</div>
+            <div><div class="anatomy-name">Лунула</div><div class="anatomy-note">Видимая часть матрикса, форма полумесяца, более светлый цвет</div></div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">9</div>
+            <div><div class="anatomy-name">Задний валик (проксимальный)</div></div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">10</div>
+            <div><div class="anatomy-name">Кутикула</div><div class="anatomy-note">Отмершая кожа</div></div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">11</div>
+            <div>
+              <div class="anatomy-name">Эпонихий</div>
+              <div class="anatomy-note">Живая ткань вокруг ногтя. Часто путают с кутикулой — но эпонихий нельзя обрезать!</div>
+            </div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">12</div>
+            <div><div class="anatomy-name">Синусы</div><div class="anatomy-note">Места перехода латерального валика в проксимальный</div></div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">13</div>
+            <div><div class="anatomy-name">Птеригий</div><div class="anatomy-note">Плёнка под кутикулой</div></div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">14</div>
+            <div>
+              <div class="anatomy-name">Гипонихий</div>
+              <div class="anatomy-note">
+                Живая ткань между ногтевым ложем и ногтевой пластиной. Есть у каждого человека.
+                <div class="item danger" style="margin-top:6px">
+                  <strong>🚫 Нельзя ковырять, обрезать или убирать!</strong>
+                  Может привести к попаданию грязи, микробов и появлению онихолизиса (пустот под ногтём)
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">15</div>
+            <div><div class="anatomy-name">Дистальный валик (передний)</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЧАСТЬ 4 -->
+  <div class="section" id="s3">
+    <div class="part-header">
+      <div class="part-badge">Часть 4</div>
+      <h2>Инструменты и материалы</h2>
+      <p>Правильный выбор — половина успеха</p>
+    </div>
+    <div class="cards">
+
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🔧</div>
+          <h3>Фрезы</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="grid-2">
+            <div class="grid-item">
+              <div class="gi-title">Алмазные</div>
+              Для работы с кожей
+            </div>
+            <div class="grid-item">
+              <div class="gi-title">Твёрдосплавные / керамические</div>
+              Для искусственного материала
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <strong style="color:var(--mauve); font-size:13px;">Насечки алмазных фрез:</strong>
+            <div class="table-wrap" style="margin-top:8px">
+              <table>
+                <tr><th>Цвет</th><th>Жёсткость</th><th>Применение</th></tr>
+                <tr><td>🟡 Жёлтая</td><td>Самая мягкая</td><td>Новички</td></tr>
+                <tr><td>🔴 Красная</td><td>Мягкая</td><td>Оптимальна для кожи</td></tr>
+                <tr><td>🔵 Синяя</td><td>Средне-жёсткая</td><td>Грубая кутикула</td></tr>
+                <tr><td>🟢 Зелёная</td><td>Самая жёсткая</td><td>Кожа на ногах</td></tr>
+              </table>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <strong style="color:var(--mauve); font-size:13px;">Насечки твёрдосплавных фрез:</strong>
+            <div class="table-wrap" style="margin-top:8px">
+              <table>
+                <tr><th>Цвет</th><th>Жёсткость</th></tr>
+                <tr><td>🔵 Синяя</td><td>Средне-жёсткая (оптимальная)</td></tr>
+                <tr><td>🟢 Зелёная</td><td>Жёсткая</td></tr>
+                <tr><td>🟣 Фиолетовая / Чёрная</td><td>Самые жёсткие</td></tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="item" style="margin-top:10px">
+            <strong>Формы фрез:</strong>
+            <div class="tags" style="margin-top:6px">
+              <span class="tag tag-pink">🌽 Кукуруза</span>
+              <span class="tag tag-pink">🎄 Конус/ёлка</span>
+              <span class="tag tag-pink">Для пропила под ногтем</span>
+            </div>
+          </div>
+
+          <div class="item" style="margin-top:8px">
+            <strong>⭐ Рекомендация для старта</strong>
+            Алмазная фреза 021 с красной насечкой — удобна как для новичков, так и для опытных мастеров
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">✂️</div>
+          <h3>Режущий инструмент</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="tags">
+            <span class="tag tag-pink">Ножнички</span>
+            <span class="tag tag-pink">Кусачки</span>
+            <span class="tag tag-pink">Твизеры</span>
+          </div>
+          <div class="item warning" style="margin-top:10px">
+            <strong>💡 Совет</strong>
+            Иметь 2–3 пары инструментов (режущий + алмазные фрезы), чтобы принимать 2–3 клиентов в день без перерыва на стерилизацию
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🧴</div>
+          <h3>Праймеры</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item">Улучшает сцепку ногтевой пластины с материалом</div>
+          <div class="grid-2" style="margin-top:8px">
+            <div class="grid-item">
+              <div class="gi-title">Кислотный</div>
+              Более агрессивный. Для жирной пластины и акрилового наращивания
+            </div>
+            <div class="grid-item">
+              <div class="gi-title">Бескислотный</div>
+              Безопасный. Для чувствительных и тонких ногтей ✅
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🏗️</div>
+          <h3>Базы</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item success">Работает как адгезив — обеспечивает сцепку ногтя с материалом и стойкость маникюра</div>
+          <div class="item">
+            <strong>💪 Жёсткая (Hard / Strong / Extra)</strong>
+            Только для крепких, здоровых ногтей с выраженным апексом. Не гнётся — тонкие ногти будут отслаиваться
+          </div>
+          <div class="item">
+            <strong>🔶 Средне-жёсткая (Rubber, универсальная)</strong>
+            Средне-густая, самовыравнивается. Для гибких и мягких ногтей
+          </div>
+          <div class="item">
+            <strong>🌿 Эластичная (кислотная)</strong>
+            Не выравнивать! Подложка для укрепления мягких и травмированных ногтей. Покрыть твёрдым гелем для лучшей носки
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">✨</div>
+          <h3>Топы</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item success">Закрепляющий слой — защищает покрытие от повреждений</div>
+          <div class="tags" style="margin-top:8px">
+            <span class="tag tag-pink">С липким слоем</span>
+            <span class="tag tag-pink">Без липкого слоя</span>
+            <span class="tag tag-pink">Матовый</span>
+            <span class="tag tag-dark">С эффектами (блёстки, зеркало)</span>
+          </div>
+          <div class="item warning" style="margin-top:8px">
+            <strong>ℹ️ Липкий слой</strong>
+            После просушки убрать обезжиривателем и безворсовой салфеткой
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">💧</div>
+          <h3>Другие препараты</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item"><strong>Обезжириватель</strong> — убирает пыль, грязь, жирный блеск с ногтевой пластины</div>
+          <div class="item"><strong>Дигидратор</strong> — удаляет влагу с ногтей. Использовать только при влажной пластине перед покрытием</div>
+          <div class="item"><strong>Апельсиновые палочки</strong> — для отодвигания кутикулы и раскрытия кармана</div>
+          <div class="item"><strong>Одноразовые пилки</strong> — абразив 180/240 Грит</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🎨</div>
+          <h3>Гели для моделирования</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item">
+            <strong>Самовыравнивающийся</strong>
+            <div class="item warning" style="margin-top:6px"><strong>⚠️</strong> Молочный оттенок — слегка печёт</div>
+          </div>
+          <div class="item">
+            <strong>Акригель (акрил + гель)</strong>
+            Не печёт. Можно моделировать клюющие ногти, наращивать, укреплять
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ЧАСТЬ 5 -->
+  <div class="section" id="s4">
+    <div class="part-header">
+      <div class="part-badge">Часть 5</div>
+      <h2>Безопасное снятие покрытия</h2>
+      <p>Техника, которая защищает и клиента, и мастера</p>
+    </div>
+    <div class="cards">
+
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">✋</div>
+          <h3>Основные правила</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="highlight">
+            <div class="hl-title">⭐ Важно</div>
+            Опорный палец рабочей руки — <strong>мизинец</strong>
+          </div>
+          <div class="item">
+            <strong>Снятие покрытия:</strong>
+            На максимальных оборотах · Режим Forward (вперёд)
+          </div>
+        </div>
+      </div>
+
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">⚙️</div>
+          <h3>Обороты и зоны работы</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="table-wrap">
+            <table>
+              <tr><th>Обороты</th><th>Действие</th></tr>
+              <tr><td><strong>35 000</strong></td><td>Снятие покрытия</td></tr>
+              <tr><td><strong>15 000</strong></td><td>Зачищаем кутикулу (птеригий)</td></tr>
+              <tr><td><strong>5 000</strong></td><td>Шлифовка после среза</td></tr>
+            </table>
+          </div>
+          <div class="formula" style="margin-top:12px">
+            <div class="f-title">📍 Зоны работы фрезой</div>
+            <strong>Носик</strong> — верхняя часть ногтя<br>
+            <strong>Щёчка</strong> — середина<br>
+            <strong>Пузико</strong> — нижняя часть
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🗂️</div>
+          <h3>Этапы комбинированного маникюра</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-text">Апельсиновой палочкой отодвигаем кутикулу и раскрываем карман</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text">Фреза <strong>15 000 об.</strong> — убираем птеригий. FWD → влево, затем RW → вправо</div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-text">Срезаем кутикулу</div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-text">Фреза <strong>RW, 5 000 об.</strong> — шлифовка</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">📋</div>
+          <h3>Полный план работы с клиентом</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-text">Обработать руки антисептиком. Осмотреть руки</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text">Снять старое покрытие</div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-text">Отодвинуть кутикулу апельсиновой палочкой</div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-text">Опил формы</div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-text">Поднять чешуйки пилкой</div></div>
+            <div class="step"><div class="step-num">6</div><div class="step-text">Обработка кутикулы алмазной фрезой</div></div>
+            <div class="step"><div class="step-num">7</div><div class="step-text">Срез кутикулы</div></div>
+            <div class="step"><div class="step-num">8</div><div class="step-text">Полировка кутикулы алмазной фрезой</div></div>
+            <div class="step"><div class="step-num">9</div><div class="step-text">Убрать пыль и обезжирить</div></div>
+            <div class="step"><div class="step-num">10</div><div class="step-text">Дигидратор (весь ноготь) + праймер (2–3 мазка на кончик)</div></div>
+            <div class="step"><div class="step-num">11</div><div class="step-text">База</div></div>
+            <div class="step"><div class="step-num">12</div><div class="step-text">Выравнивание</div></div>
+            <div class="step"><div class="step-num">13</div><div class="step-text">Цвет</div></div>
+            <div class="step"><div class="step-num">14</div><div class="step-text">Опил торца</div></div>
+            <div class="step"><div class="step-num">15</div><div class="step-text">Топ</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ЧАСТЬ 6 -->
+  <div class="section" id="s5">
+    <div class="part-header">
+      <div class="part-badge">Часть 6</div>
+      <h2>Коррекция длины и опил формы</h2>
+      <p>Идеальные пропорции — красивый результат</p>
+    </div>
+    <div class="cards">
+
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">📐</div>
+          <h3>Формула идеальных пропорций</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="formula">
+            <div class="f-title">💅 Соотношение длин</div>
+            <div class="steps">
+              <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Безымянный = Указательный</strong></div></div>
+              <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Средний</strong> больше безым. и указ. на <strong>1–1,5 мм</strong></div></div>
+              <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Мизинец</strong> меньше безымянного на <strong>2–3 мм</strong></div></div>
+              <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Большой</strong> больше безым. и указ. на <strong>2–3 мм</strong></div></div>
+            </div>
+          </div>
+          <div class="highlight" style="margin-top:10px">
+            <div class="hl-title">📏 Оси</div>
+            <strong>Боковая ось</strong> — боковые стенки параллельны<br>
+            <strong>Центральная ось</strong> — симметрия формы по центру
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🔷</div>
+          <h3>Квадратные формы</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item"><strong>Острый квадрат</strong><br>Сначала корректируем длину, затем боковые стенки</div>
+          <div class="item"><strong>Мягкий квадрат</strong><br>Углы слегка скруглены</div>
+          <div class="item"><strong>Скво-овал</strong><br>Переходная форма между квадратом и овалом</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🥚</div>
+          <h3>Овальные формы</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item"><strong>Овал</strong> — классика, подходит большинству</div>
+          <div class="item"><strong>Миндаль</strong> — зауженный к кончику овал</div>
+          <div class="item"><strong>Стилет</strong> — острая, экстравагантная</div>
+          <div class="item"><strong>Балерина</strong> — плоская на кончике, как пуанты</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ЧАСТЬ 7 -->
+  <div class="section" id="s6">
+    <div class="part-header">
+      <div class="part-badge">Часть 7</div>
+      <h2>Правильная архитектура ногтей</h2>
+      <p>Красота + безопасная носка = верная архитектура</p>
+    </div>
+    <div class="cards">
+
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🏛️</div>
+          <h3>Что такое архитектура ногтя?</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item success">
+            Создание натуральной, правильной формы. При верной архитектуре — идеальные блики и материал держится без повреждений весь срок носки
+          </div>
+          <div class="item">
+            <strong>Выравнивание — необходимость, не доп. услуга</strong><br>
+            Создаёт единую форму (ногти на разных пальцах отличаются по форме и выпуклости). Необходимо для правильной архитектуры и безопасной носки
+          </div>
+        </div>
+      </div>
+
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">📍</div>
+          <h3>Апекс — ключевой элемент</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="highlight">
+            <div class="hl-title">📌 Апекс</div>
+            Наивысшая точка ногтя (вид сбоку). Выстраивается с учётом длины
+          </div>
+          <div class="formula">
+            <div class="f-title">📏 Где располагать апекс</div>
+            Мысленно делим ноготь на 3 части:<br><br>
+            <strong>Короткие ногти</strong> — апекс в центре 2-й части<br>
+            <strong>Длинные ногти</strong> — на границе 1-й и 2-й части
+          </div>
+          <div class="item warning">
+            <strong>⚠️ Не перенашивайте покрытие!</strong>
+            При росте ногтя апекс сдвигается к 3-й части → риск поломки. Носка не более <strong>3–4 недель</strong>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ЧАСТЬ 8 -->
+  <div class="section" id="s7">
+    <div class="part-header">
+      <div class="part-badge">Часть 8</div>
+      <h2>Заболевания ногтей</h2>
+      <p>Знай когда работать нельзя — это защита всех</p>
+    </div>
+    <div class="cards">
+
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">⚕️</div>
+          <h3>Главное правило</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="item danger">
+            <strong>🚫 При наличии инфекционных заболеваний ногтей</strong>
+            Ни в коем случае нельзя покрывать! Направьте клиента к врачу
+          </div>
+        </div>
+      </div>
+
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🦠</div>
+          <h3>Заболевания — обзор</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+
+          <div class="disease">
+            <div class="disease-head d-ok">🟡 Онихолизис <span style="font-weight:400;font-size:12px;margin-left:auto">не заразен</span></div>
+            <div class="disease-body d-ok-body">Отслоение ногтевой пластины от ложа. Причина: рана, ожог, вода, ушиб. <strong>Покрывать нельзя</strong></div>
+          </div>
+
+          <div class="disease">
+            <div class="disease-head d-bad">🔴 Онихомикоз <span style="font-weight:400;font-size:12px;margin-left:auto">ЗАРАЗЕН!</span></div>
+            <div class="disease-body d-bad-body">Грибковое поражение ногтей. Без лечения даёт серьёзные осложнения. <strong>Покрывать нельзя</strong></div>
+          </div>
+
+          <div class="disease">
+            <div class="disease-head d-ok">🟡 Онихорексис <span style="font-weight:400;font-size:12px;margin-left:auto">не заразен</span></div>
+            <div class="disease-body d-ok-body">Продольное расщепление и ломкость пластины. <strong>Покрывать нельзя</strong></div>
+          </div>
+
+          <div class="disease">
+            <div class="disease-head d-bad">🔴 Синегнойная палочка <span style="font-weight:400;font-size:12px;margin-left:auto">ЗАРАЗНА!</span></div>
+            <div class="disease-body d-bad-body"><strong>Покрывать нельзя!</strong></div>
+          </div>
+
+          <div class="disease">
+            <div class="disease-head d-ok">🟡 Псориаз <span style="font-weight:400;font-size:12px;margin-left:auto">не заразен</span></div>
+            <div class="disease-body d-ok-body">Множественные углубления на ногте. Хронический неинфекционный дерматоз. <strong>Покрывать нельзя</strong></div>
+          </div>
+
+          <div class="disease">
+            <div class="disease-head d-bad">🔴 Бородавки <span style="font-weight:400;font-size:12px;margin-left:auto">ЗАРАЗНЫ!</span></div>
+            <div class="disease-body d-bad-body"><strong>Покрывать нельзя</strong></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- СПИСОК ПОКУПОК -->
+  <div class="section" id="s8">
+    <div class="part-header">
+      <div class="part-badge">Список покупок</div>
+      <h2>Что купить для старта</h2>
+      <p>Все артикулы — Wildberries</p>
+    </div>
+    <div class="cards">
+      <div class="card open">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-icon">🛒</div>
+          <h3>Полный список</h3>
+          <span class="card-arrow">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="shop-item"><div class="shop-num">1</div><div><div>Стол + 2 стула + мусорное ведро</div><div class="shop-art">📦 Стол: 123970270 · Стул: 106083660</div></div></div>
+          <div class="shop-item"><div class="shop-num">2</div><div><div>Подставка под руку клиента</div><div class="shop-art">Подбирать по габаритам пылесоса</div></div></div>
+          <div class="shop-item"><div class="shop-num">3</div><div><div>Гибридная лампа</div><div class="shop-art">📦 76033521</div></div></div>
+          <div class="shop-item"><div class="shop-num">4</div><div><div>Маникюрный аппарат (не менее 35 000 об/мин)</div><div class="shop-art">📦 178627378</div></div></div>
+          <div class="shop-item"><div class="shop-num">5</div><div><div>Пылесос + настольная лампа (холодный свет)</div></div></div>
+          <div class="shop-item"><div class="shop-num">6</div><div><div>Сухожар + бокс для дезинфекции + крафт-пакеты + раствор (аламинол/оптимакс)</div><div class="shop-art">📦 Крафт-пакеты: 28797979</div></div></div>
+          <div class="shop-item"><div class="shop-num">7</div><div><div>Антисептик для рук + антисептик для поверхностей + бумажные полотенца</div></div></div>
+          <div class="shop-item"><div class="shop-num">8</div><div><div>Обезжириватель</div><div class="shop-art">📦 116622008 · или "im kosmetik" (дешевле, раскупают быстро)</div></div></div>
+          <div class="shop-item"><div class="shop-num">9</div><div><div>Безворсовые салфетки</div><div class="shop-art">📦 179247663</div></div></div>
+          <div class="shop-item"><div class="shop-num">10</div><div><div>Праймер бескислотный</div></div></div>
+          <div class="shop-item"><div class="shop-num">11</div><div><div>Дигидратор</div><div class="shop-art">📦 53974579</div></div></div>
+          <div class="shop-item"><div class="shop-num">12</div><div><div>Апельсиновые палочки</div><div class="shop-art">📦 130029273</div></div></div>
+          <div class="shop-item"><div class="shop-num">13</div><div><div>Кровоостанавливающее (капрамин) + микробраш</div><div class="shop-art">📦 124842414</div></div></div>
+          <div class="shop-item"><div class="shop-num">14</div><div><div>Пилки 180/240 Грит</div><div class="shop-art">📦 123724419</div></div></div>
+          <div class="shop-item"><div class="shop-num">15</div><div><div>Щётки для пыли</div><div class="shop-art">📦 53911117</div></div></div>
+          <div class="shop-item"><div class="shop-num">16</div><div><div>Перчатки нитриловые</div><div class="shop-art">📦 152387589</div></div></div>
+          <div class="shop-item"><div class="shop-num">17</div><div><div>Фартук / медицинский костюм</div></div></div>
+          <div class="shop-item"><div class="shop-num">18</div><div><div>Кисти (тонкая и толстая)</div></div></div>
+          <div class="shop-item"><div class="shop-num">19</div><div><div>Алмазные фрезы 021 с красной насечкой (2–3 шт.)</div></div></div>
+          <div class="shop-item"><div class="shop-num">20</div><div><div>Режущий инструмент: ножнички / твизеры / кусачки (2–3 пары)</div></div></div>
+          <div class="shop-item"><div class="shop-num">21</div><div><div>Твёрдосплавная / керамическая фреза</div></div></div>
+          <div class="shop-item"><div class="shop-num">22</div><div><div>База эластичная (для подложки)</div></div></div>
+          <div class="shop-item"><div class="shop-num">23</div><div><div>Топ без липкого слоя</div><div class="shop-art">📦 136614523</div></div></div>
+          <div class="shop-item"><div class="shop-num">24</div><div><div>Гель (молочный оттенок для начала)</div></div></div>
+          <div class="shop-item"><div class="shop-num">25</div><div><div>Акригель прозрачный</div><div class="shop-art">📦 29142652</div></div></div>
+          <div class="shop-item"><div class="shop-num">26</div><div><div>Типсы для выкраски цветов</div><div class="shop-art">📦 76533554</div></div></div>
+          <div class="shop-item"><div class="shop-num">27</div><div><div>Гель-лаки (обязательно белый, чёрный, красный)</div></div></div>
+          <div class="shop-item"><div class="shop-num">28</div><div><div>Контейнер для подручных средств + лоток для расходников</div><div class="shop-art">📦 Контейнер: Фикспрайс · Лоток: 149126673</div></div></div>
+          <div class="shop-item"><div class="shop-num">29</div><div><div>Помпа для обезжиривателя</div><div class="shop-art">📦 165735842</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span class="f-heart">🌸</span><br>
+  Базовый курс по маникюру<br>
+  Все права защищены
+</footer>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  function showSection(idx, btn) {
+    document.querySelectorAll('.section').forEach((s,i) => {
+      s.classList.toggle('active', i === idx);
+    });
+    document.querySelectorAll('.nav-btn').forEach((b,i) => {
+      b.classList.toggle('active', i === idx);
+    });
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function toggleCard(header) {
+    const card = header.parentElement;
+    card.classList.toggle('open');
+  }
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('scrollTopBtn').style.display =
+      window.scrollY > 300 ? 'flex' : 'none';
+  });
+
+  // open first card in each section by default
+  document.querySelectorAll('.section').forEach(s => {
+    const first = s.querySelector('.card');
+    if(first) first.classList.add('open');
+  });
+</script>
+</body>
+</html>
